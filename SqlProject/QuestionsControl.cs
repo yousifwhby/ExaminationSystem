@@ -12,11 +12,11 @@ namespace SqlProject
 {
     public partial class QuestionsControl : UserControl
     {
-        public QuestionsControl(int qnum, string qdesc, string ans1, string ans2, string ans3)
+        public QuestionsControl(int qnum, string qDesc, string ans1, string ans2, string ans3)
         {
             InitializeComponent();
             QuestNo.Text = $"{qnum})";
-            QuesDesc.Text = qdesc;
+            QuesDesc.Text = qDesc;
             label1.Text = ans1;
             label2.Text = ans2;
             label3.Text = ans3;
