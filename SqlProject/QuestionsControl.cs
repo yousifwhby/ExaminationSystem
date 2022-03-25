@@ -12,19 +12,20 @@ namespace SqlProject
 {
     public partial class QuestionsControl : UserControl
     {
-        public QuestionsControl(int qnum, string qDesc, string ans1, string ans2, string ans3)
+       
+        public QuestionsControl(int qNo, string qDesc, string Ans1, string Ans2, string Ans3)
         {
             InitializeComponent();
-            QuestNo.Text = $"{qnum})";
+            QuestNo.Text = $"{qNo})";
             QuesDesc.Text = qDesc;
-            label1.Text = ans1;
-            label2.Text = ans2;
-            label3.Text = ans3;
-            if (ans3 == null)
+            label1.Text = Ans1;
+            label2.Text = Ans2;
+            label3.Text = Ans3;
+            if (Ans3 == null)
             {
                 label3.Visible = false;
                 radioButton3.Visible = false;
-                this.Size = new Size(650, 150);
+                this.Size = new Size(555, 100);
             }
         }
        

@@ -11,14 +11,17 @@ namespace SqlProject
        public static Studentf studentForm;
        public static Instructorf InstructorForm;
        public static Login loginForm;
-        public static SQLProjectEntities2 entity;
+        public static Examf examForm;
+        public static SQLProjectEntities3 entity;
         public static int UserID;
-        
+        public static string UserName;
+
+
 
         static MainApp()
         {
             loginForm = new Login();
-            entity = new SQLProjectEntities2();
+            entity = new SQLProjectEntities3();
         }
 
 

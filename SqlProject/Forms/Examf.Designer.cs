@@ -29,16 +29,16 @@ namespace SqlProject
         /// </summary>
         private void InitializeComponent()
         {
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutQuestion = new System.Windows.Forms.FlowLayoutPanel();
             this.Submit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // flowLayoutPanel1
+            // flowLayoutQuestion
             // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(4, 3);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(553, 508);
-            this.flowLayoutPanel1.TabIndex = 1;
+            this.flowLayoutQuestion.Location = new System.Drawing.Point(4, 3);
+            this.flowLayoutQuestion.Name = "flowLayoutQuestion";
+            this.flowLayoutQuestion.Size = new System.Drawing.Size(553, 508);
+            this.flowLayoutQuestion.TabIndex = 1;
             // 
             // Submit
             // 
@@ -61,7 +61,7 @@ namespace SqlProject
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(560, 551);
             this.Controls.Add(this.Submit);
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.flowLayoutQuestion);
             this.Name = "Examf";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Examf";
@@ -71,7 +71,7 @@ namespace SqlProject
 
         #endregion
 
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutQuestion;
         private System.Windows.Forms.Button Submit;
     }
 }

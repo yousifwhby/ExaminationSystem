@@ -14,13 +14,27 @@ namespace SqlProject
     {
         public Studentf()
         {
+
             InitializeComponent();
+            StdName.Text = MainApp.UserName.ToUpper();
         }
 
         private void Studentf_FormClosing(object sender, FormClosingEventArgs e)
         {
             
             Application.Exit();
+        }
+
+        private void Studentf_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void StartExam_btn_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            MainApp.examForm = new Examf(17);
+            MainApp.examForm.Show();
         }
     }
 }

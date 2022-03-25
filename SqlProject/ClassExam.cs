@@ -20,12 +20,14 @@ namespace SqlProject
         public string qDesc;
         public ClassChoice[] choices;
         public int studentChoiceID;
+        public string studentChoiceDesc;
         public ClassQuestion()
         {
             choices = new ClassChoice[3];
             qID = 0;
             qDesc = null;
             studentChoiceID = 0;
+            studentChoiceDesc = "";
         }
     }
     public class ClassChoice
