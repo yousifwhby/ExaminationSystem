@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SQLProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SQLProjectModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="choices">
           <Key>
             <PropertyRef Name="choice_ID" />
@@ -95,6 +95,7 @@
         <EntityType Name="Students_exams_questions">
           <Key>
             <PropertyRef Name="exam_ID" />
+            <PropertyRef Name="qustion_ID" />
             <PropertyRef Name="student_ID" />
           </Key>
           <Property Name="exam_ID" Type="int" Nullable="false" />
@@ -292,17 +293,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Students_exams_questions_students">
-          <End Role="students" Type="Self.students" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK_Students_exams_questions_students1">
+          <End Role="students" Type="Self.students" Multiplicity="1" />
           <End Role="Students_exams_questions" Type="Self.Students_exams_questions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="students">
               <PropertyRef Name="student_ID" />
             </Principal>
             <Dependent Role="Students_exams_questions">
-              <PropertyRef Name="qustion_ID" />
+              <PropertyRef Name="student_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -321,6 +320,10 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="AssignExamTOStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="examID" Type="int" Mode="In" />
+          <Parameter Name="stdID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="correctExam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="examID" Type="int" Mode="In" />
           <Parameter Name="stdID" Type="int" Mode="In" />
         </Function>
@@ -371,16 +374,8 @@
         <Function Name="exam_answers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="examID" Type="int" Mode="In" />
           <Parameter Name="stdID" Type="int" Mode="In" />
-          <Parameter Name="stdAnswer1" Type="varchar" Mode="In" />
-          <Parameter Name="stdAnswer2" Type="varchar" Mode="In" />
-          <Parameter Name="stdAnswer3" Type="varchar" Mode="In" />
-          <Parameter Name="stdAnswer4" Type="varchar" Mode="In" />
-          <Parameter Name="stdAnswer5" Type="varchar" Mode="In" />
-          <Parameter Name="stdAnswer6" Type="varchar" Mode="In" />
-          <Parameter Name="stdAnswer7" Type="varchar" Mode="In" />
-          <Parameter Name="stdAnswer8" Type="varchar" Mode="In" />
-          <Parameter Name="stdAnswer9" Type="varchar" Mode="In" />
-          <Parameter Name="stdAnswer10" Type="varchar" Mode="In" />
+          <Parameter Name="QuestionRN" Type="int" Mode="In" />
+          <Parameter Name="stdAnswer" Type="varchar" Mode="In" />
         </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="generateExam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -605,7 +600,7 @@
           <Parameter Name="Course_id" Type="int" Mode="In" />
           <Parameter Name="T_name" Type="varchar" Mode="In" />
         </Function>
-        <EntityContainer Name="SQLProjectModelStoreContainer">
+        <EntityContainer Name="SQLProjectModel1StoreContainer">
           <EntitySet Name="choices" EntityType="Self.choices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="courses" EntityType="Self.courses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="department" EntityType="Self.department" Schema="dbo" store:Type="Tables" />
@@ -671,7 +666,7 @@
             <End Role="department" EntitySet="department" />
             <End Role="students" EntitySet="students" />
           </AssociationSet>
-          <AssociationSet Name="FK_Students_exams_questions_students" Association="Self.FK_Students_exams_questions_students">
+          <AssociationSet Name="FK_Students_exams_questions_students1" Association="Self.FK_Students_exams_questions_students1">
             <End Role="students" EntitySet="students" />
             <End Role="Students_exams_questions" EntitySet="Students_exams_questions" />
           </AssociationSet>
@@ -684,7 +679,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SQLProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="SQLProjectModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="choice">
           <Key>
             <PropertyRef Name="choice_ID" />
@@ -775,12 +770,13 @@
           <Property Name="student_Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="department" Relationship="Self.FK_students_department" FromRole="students" ToRole="department" />
           <NavigationProperty Name="student_exam" Relationship="Self.FK_student_exam_students" FromRole="students" ToRole="student_exam" />
-          <NavigationProperty Name="Students_exams_questions" Relationship="Self.FK_Students_exams_questions_students" FromRole="students" ToRole="Students_exams_questions" />
+          <NavigationProperty Name="Students_exams_questions" Relationship="Self.FK_Students_exams_questions_students1" FromRole="students" ToRole="Students_exams_questions" />
           <NavigationProperty Name="courses" Relationship="Self.student_courses" FromRole="students" ToRole="courses" />
         </EntityType>
         <EntityType Name="Students_exams_questions">
           <Key>
             <PropertyRef Name="exam_ID" />
+            <PropertyRef Name="qustion_ID" />
             <PropertyRef Name="student_ID" />
           </Key>
           <Property Name="exam_ID" Type="Int32" Nullable="false" />
@@ -789,7 +785,7 @@
           <Property Name="student_ID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="exam" Relationship="Self.FK_exams_questions_exams" FromRole="Students_exams_questions" ToRole="exams" />
           <NavigationProperty Name="question" Relationship="Self.FK_exams_questions_questions" FromRole="Students_exams_questions" ToRole="questions" />
-          <NavigationProperty Name="student" Relationship="Self.FK_Students_exams_questions_students" FromRole="Students_exams_questions" ToRole="students" />
+          <NavigationProperty Name="student" Relationship="Self.FK_Students_exams_questions_students1" FromRole="Students_exams_questions" ToRole="students" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -940,17 +936,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Students_exams_questions_students">
-          <End Role="students" Type="Self.student" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK_Students_exams_questions_students1">
+          <End Role="students" Type="Self.student" Multiplicity="1" />
           <End Role="Students_exams_questions" Type="Self.Students_exams_questions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="students">
               <PropertyRef Name="student_ID" />
             </Principal>
             <Dependent Role="Students_exams_questions">
-              <PropertyRef Name="qustion_ID" />
+              <PropertyRef Name="student_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -962,7 +956,7 @@
           <End Role="courses" Type="Self.cours" Multiplicity="*" />
           <End Role="students" Type="Self.student" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="SQLProjectEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SQLProjectEntities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="choices" EntityType="Self.choice" />
           <EntitySet Name="courses" EntityType="Self.cours" />
           <EntitySet Name="departments" EntityType="Self.department" />
@@ -1014,7 +1008,7 @@
             <End Role="students" EntitySet="students" />
             <End Role="student_exam" EntitySet="student_exam" />
           </AssociationSet>
-          <AssociationSet Name="FK_Students_exams_questions_students" Association="Self.FK_Students_exams_questions_students">
+          <AssociationSet Name="FK_Students_exams_questions_students1" Association="Self.FK_Students_exams_questions_students1">
             <End Role="students" EntitySet="students" />
             <End Role="Students_exams_questions" EntitySet="Students_exams_questions" />
           </AssociationSet>
@@ -1027,6 +1021,10 @@
             <End Role="students" EntitySet="students" />
           </AssociationSet>
           <FunctionImport Name="AssignExamTOStudent" ReturnType="Collection(String)">
+            <Parameter Name="examID" Mode="In" Type="Int32" />
+            <Parameter Name="stdID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="correctExam" ReturnType="Collection(String)">
             <Parameter Name="examID" Mode="In" Type="Int32" />
             <Parameter Name="stdID" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1074,19 +1072,11 @@
           <FunctionImport Name="delete_Topics" ReturnType="Collection(String)">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="exam_answers">
+          <FunctionImport Name="exam_answers" ReturnType="Collection(String)">
             <Parameter Name="examID" Mode="In" Type="Int32" />
             <Parameter Name="stdID" Mode="In" Type="Int32" />
-            <Parameter Name="stdAnswer1" Mode="In" Type="String" />
-            <Parameter Name="stdAnswer2" Mode="In" Type="String" />
-            <Parameter Name="stdAnswer3" Mode="In" Type="String" />
-            <Parameter Name="stdAnswer4" Mode="In" Type="String" />
-            <Parameter Name="stdAnswer5" Mode="In" Type="String" />
-            <Parameter Name="stdAnswer6" Mode="In" Type="String" />
-            <Parameter Name="stdAnswer7" Mode="In" Type="String" />
-            <Parameter Name="stdAnswer8" Mode="In" Type="String" />
-            <Parameter Name="stdAnswer9" Mode="In" Type="String" />
-            <Parameter Name="stdAnswer10" Mode="In" Type="String" />
+            <Parameter Name="QuestionRN" Mode="In" Type="Int32" />
+            <Parameter Name="stdAnswer" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="generateExam" ReturnType="Collection(String)">
             <Parameter Name="courseName" Mode="In" Type="String" />
@@ -1150,32 +1140,32 @@
             <Parameter Name="Course_id" Mode="In" Type="Int32" />
             <Parameter Name="T_name" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="r1_student_info_for_each_department" ReturnType="Collection(SQLProjectModel.r1_student_info_for_each_department_Result)">
+          <FunctionImport Name="r1_student_info_for_each_department" ReturnType="Collection(SQLProjectModel1.r1_student_info_for_each_department_Result)">
             <Parameter Name="depID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="r2_student_grades" ReturnType="Collection(SQLProjectModel.r2_student_grades_Result)">
+          <FunctionImport Name="r2_student_grades" ReturnType="Collection(SQLProjectModel1.r2_student_grades_Result)">
             <Parameter Name="student_ID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="r3_instructor_courses" ReturnType="Collection(SQLProjectModel.r3_instructor_courses_Result)">
+          <FunctionImport Name="r3_instructor_courses" ReturnType="Collection(SQLProjectModel1.r3_instructor_courses_Result)">
             <Parameter Name="instructor_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="r4_course_topics" ReturnType="Collection(String)">
             <Parameter Name="course_ID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="r5_exam_questions" ReturnType="Collection(SQLProjectModel.r5_exam_questions_Result)">
+          <FunctionImport Name="r5_exam_questions" ReturnType="Collection(SQLProjectModel1.r5_exam_questions_Result)">
             <Parameter Name="exam_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="r6_student_exam">
             <Parameter Name="exam_ID" Mode="In" Type="Int32" />
             <Parameter Name="student_ID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="select_choices" ReturnType="Collection(SQLProjectModel.select_choices_Result)">
+          <FunctionImport Name="select_choices" ReturnType="Collection(SQLProjectModel1.select_choices_Result)">
             <Parameter Name="id" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="select_Course">
             <Parameter Name="selectedData" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="select_department" ReturnType="Collection(SQLProjectModel.select_department_Result)">
+          <FunctionImport Name="select_department" ReturnType="Collection(SQLProjectModel1.select_department_Result)">
             <Parameter Name="id" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="select_Exams">
@@ -1184,42 +1174,42 @@
           <FunctionImport Name="select_Instructor">
             <Parameter Name="selectedData" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="select_instructorCourseByCourse" ReturnType="Collection(SQLProjectModel.select_instructorCourseByCourse_Result)">
+          <FunctionImport Name="select_instructorCourseByCourse" ReturnType="Collection(SQLProjectModel1.select_instructorCourseByCourse_Result)">
             <Parameter Name="Course_Id" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="select_instructorCourseByInstructor" ReturnType="Collection(SQLProjectModel.select_instructorCourseByInstructor_Result)">
+          <FunctionImport Name="select_instructorCourseByInstructor" ReturnType="Collection(SQLProjectModel1.select_instructorCourseByInstructor_Result)">
             <Parameter Name="Instructor_id" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="select_Questions" ReturnType="Collection(SQLProjectModel.select_Questions_Result)">
+          <FunctionImport Name="select_Questions" ReturnType="Collection(SQLProjectModel1.select_Questions_Result)">
             <Parameter Name="id" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="select_Student" ReturnType="Collection(SQLProjectModel.select_Student_Result)">
+          <FunctionImport Name="select_Student" ReturnType="Collection(SQLProjectModel1.select_Student_Result)">
             <Parameter Name="id" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="select_studentCourseByCourse" ReturnType="Collection(SQLProjectModel.select_studentCourseByCourse_Result)">
+          <FunctionImport Name="select_studentCourseByCourse" ReturnType="Collection(SQLProjectModel1.select_studentCourseByCourse_Result)">
             <Parameter Name="Course_Id" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="select_studentCourseByStudent" ReturnType="Collection(SQLProjectModel.select_studentCourseByStudent_Result)">
+          <FunctionImport Name="select_studentCourseByStudent" ReturnType="Collection(SQLProjectModel1.select_studentCourseByStudent_Result)">
             <Parameter Name="Student_id" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="select_studentExamByExam" ReturnType="Collection(SQLProjectModel.select_studentExamByExam_Result)">
+          <FunctionImport Name="select_studentExamByExam" ReturnType="Collection(SQLProjectModel1.select_studentExamByExam_Result)">
             <Parameter Name="Exam_Id" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="select_studentExamByExamAndStudebt">
             <Parameter Name="Exam_Id" Mode="In" Type="Int32" />
             <Parameter Name="student_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="select_studentExamByStudent" ReturnType="Collection(SQLProjectModel.select_studentExamByStudent_Result)">
+          <FunctionImport Name="select_studentExamByStudent" ReturnType="Collection(SQLProjectModel1.select_studentExamByStudent_Result)">
             <Parameter Name="Student_id" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="select_studentExamQuestionByExam" ReturnType="Collection(SQLProjectModel.select_studentExamQuestionByExam_Result)">
+          <FunctionImport Name="select_studentExamQuestionByExam" ReturnType="Collection(SQLProjectModel1.select_studentExamQuestionByExam_Result)">
             <Parameter Name="Exam_Id" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="select_studentExamQuestionByExamAndStudent">
             <Parameter Name="Exam_Id" Mode="In" Type="Int32" />
             <Parameter Name="student_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="select_studentExamQuestionByStudent" ReturnType="Collection(SQLProjectModel.select_studentExamQuestionByStudent_Result)">
+          <FunctionImport Name="select_studentExamQuestionByStudent" ReturnType="Collection(SQLProjectModel1.select_studentExamQuestionByStudent_Result)">
             <Parameter Name="Student_id" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="select_Topics">
@@ -1241,11 +1231,11 @@
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(SQLProjectModel.sp_helpdiagramdefinition_Result)">
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(SQLProjectModel1.sp_helpdiagramdefinition_Result)">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(SQLProjectModel.sp_helpdiagrams_Result)">
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(SQLProjectModel1.sp_helpdiagrams_Result)">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1412,9 +1402,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SQLProjectModelStoreContainer" CdmEntityContainer="SQLProjectEntities2">
+        <EntityContainerMapping StorageEntityContainer="SQLProjectModel1StoreContainer" CdmEntityContainer="SQLProjectEntities3">
           <EntitySetMapping Name="choices">
-            <EntityTypeMapping TypeName="SQLProjectModel.choice">
+            <EntityTypeMapping TypeName="SQLProjectModel1.choice">
               <MappingFragment StoreEntitySet="choices">
                 <ScalarProperty Name="choice_ID" ColumnName="choice_ID" />
                 <ScalarProperty Name="choice_description" ColumnName="choice_description" />
@@ -1424,7 +1414,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="courses">
-            <EntityTypeMapping TypeName="SQLProjectModel.cours">
+            <EntityTypeMapping TypeName="SQLProjectModel1.cours">
               <MappingFragment StoreEntitySet="courses">
                 <ScalarProperty Name="course_ID" ColumnName="course_ID" />
                 <ScalarProperty Name="course_name" ColumnName="course_name" />
@@ -1432,7 +1422,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="departments">
-            <EntityTypeMapping TypeName="SQLProjectModel.department">
+            <EntityTypeMapping TypeName="SQLProjectModel1.department">
               <MappingFragment StoreEntitySet="department">
                 <ScalarProperty Name="department_ID" ColumnName="department_ID" />
                 <ScalarProperty Name="department_name" ColumnName="department_name" />
@@ -1441,7 +1431,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="exams">
-            <EntityTypeMapping TypeName="SQLProjectModel.exam">
+            <EntityTypeMapping TypeName="SQLProjectModel1.exam">
               <MappingFragment StoreEntitySet="exams">
                 <ScalarProperty Name="exam_ID" ColumnName="exam_ID" />
                 <ScalarProperty Name="course_ID" ColumnName="course_ID" />
@@ -1451,7 +1441,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="instructors">
-            <EntityTypeMapping TypeName="SQLProjectModel.instructor">
+            <EntityTypeMapping TypeName="SQLProjectModel1.instructor">
               <MappingFragment StoreEntitySet="instructor">
                 <ScalarProperty Name="instructor_ID" ColumnName="instructor_ID" />
                 <ScalarProperty Name="instructor_name" ColumnName="instructor_name" />
@@ -1461,7 +1451,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="questions">
-            <EntityTypeMapping TypeName="SQLProjectModel.question">
+            <EntityTypeMapping TypeName="SQLProjectModel1.question">
               <MappingFragment StoreEntitySet="questions">
                 <ScalarProperty Name="question_ID" ColumnName="question_ID" />
                 <ScalarProperty Name="qusetion_desc" ColumnName="qusetion_desc" />
@@ -1471,7 +1461,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="student_exam">
-            <EntityTypeMapping TypeName="SQLProjectModel.student_exam">
+            <EntityTypeMapping TypeName="SQLProjectModel1.student_exam">
               <MappingFragment StoreEntitySet="student_exam">
                 <ScalarProperty Name="student_ID" ColumnName="student_ID" />
                 <ScalarProperty Name="exam_ID" ColumnName="exam_ID" />
@@ -1480,7 +1470,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="students">
-            <EntityTypeMapping TypeName="SQLProjectModel.student">
+            <EntityTypeMapping TypeName="SQLProjectModel1.student">
               <MappingFragment StoreEntitySet="students">
                 <ScalarProperty Name="student_ID" ColumnName="student_ID" />
                 <ScalarProperty Name="student_Fname" ColumnName="student_Fname" />
@@ -1492,7 +1482,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Students_exams_questions">
-            <EntityTypeMapping TypeName="SQLProjectModel.Students_exams_questions">
+            <EntityTypeMapping TypeName="SQLProjectModel1.Students_exams_questions">
               <MappingFragment StoreEntitySet="Students_exams_questions">
                 <ScalarProperty Name="exam_ID" ColumnName="exam_ID" />
                 <ScalarProperty Name="qustion_ID" ColumnName="qustion_ID" />
@@ -1502,7 +1492,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="SQLProjectModel.sysdiagram">
+            <EntityTypeMapping TypeName="SQLProjectModel1.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -1513,7 +1503,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="topics">
-            <EntityTypeMapping TypeName="SQLProjectModel.topic">
+            <EntityTypeMapping TypeName="SQLProjectModel1.topic">
               <MappingFragment StoreEntitySet="topics">
                 <ScalarProperty Name="topic_ID" ColumnName="topic_ID" />
                 <ScalarProperty Name="topic_name" ColumnName="topic_name" />
@@ -1521,7 +1511,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Instructor_Courses" TypeName="SQLProjectModel.Instructor_Courses" StoreEntitySet="Instructor_Courses">
+          <AssociationSetMapping Name="Instructor_Courses" TypeName="SQLProjectModel1.Instructor_Courses" StoreEntitySet="Instructor_Courses">
             <EndProperty Name="courses">
               <ScalarProperty Name="course_ID" ColumnName="course_ID" />
             </EndProperty>
@@ -1529,7 +1519,7 @@
               <ScalarProperty Name="instructor_ID" ColumnName="instructor_ID" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="student_courses" TypeName="SQLProjectModel.student_courses" StoreEntitySet="student_courses">
+          <AssociationSetMapping Name="student_courses" TypeName="SQLProjectModel1.student_courses" StoreEntitySet="student_courses">
             <EndProperty Name="courses">
               <ScalarProperty Name="course_ID" ColumnName="course_ID" />
             </EndProperty>
@@ -1537,37 +1527,38 @@
               <ScalarProperty Name="student_ID" ColumnName="student_ID" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="AssignExamTOStudent" FunctionName="SQLProjectModel.Store.AssignExamTOStudent" />
-          <FunctionImportMapping FunctionImportName="delete_choices" FunctionName="SQLProjectModel.Store.delete_choices" />
-          <FunctionImportMapping FunctionImportName="delete_Course" FunctionName="SQLProjectModel.Store.delete_Course" />
-          <FunctionImportMapping FunctionImportName="delete_Department" FunctionName="SQLProjectModel.Store.delete_Department" />
-          <FunctionImportMapping FunctionImportName="delete_Exams" FunctionName="SQLProjectModel.Store.delete_Exams" />
-          <FunctionImportMapping FunctionImportName="delete_instructor" FunctionName="SQLProjectModel.Store.delete_instructor" />
-          <FunctionImportMapping FunctionImportName="delete_instructorCourse" FunctionName="SQLProjectModel.Store.delete_instructorCourse" />
-          <FunctionImportMapping FunctionImportName="delete_Questions" FunctionName="SQLProjectModel.Store.delete_Questions" />
-          <FunctionImportMapping FunctionImportName="delete_Student" FunctionName="SQLProjectModel.Store.delete_Student" />
-          <FunctionImportMapping FunctionImportName="delete_studentCourse" FunctionName="SQLProjectModel.Store.delete_studentCourse" />
-          <FunctionImportMapping FunctionImportName="delete_studentExam" FunctionName="SQLProjectModel.Store.delete_studentExam" />
-          <FunctionImportMapping FunctionImportName="delete_studentExamQuestionByExamAndQuestion" FunctionName="SQLProjectModel.Store.delete_studentExamQuestionByExamAndQuestion" />
-          <FunctionImportMapping FunctionImportName="delete_studentExamQuestionByExamAndStudent" FunctionName="SQLProjectModel.Store.delete_studentExamQuestionByExamAndStudent" />
-          <FunctionImportMapping FunctionImportName="delete_Topics" FunctionName="SQLProjectModel.Store.delete_Topics" />
-          <FunctionImportMapping FunctionImportName="exam_answers" FunctionName="SQLProjectModel.Store.exam_answers" />
-          <FunctionImportMapping FunctionImportName="generateExam" FunctionName="SQLProjectModel.Store.generateExam" />
-          <FunctionImportMapping FunctionImportName="insert_choices" FunctionName="SQLProjectModel.Store.insert_choices" />
-          <FunctionImportMapping FunctionImportName="insert_Course" FunctionName="SQLProjectModel.Store.insert_Course" />
-          <FunctionImportMapping FunctionImportName="insert_Department" FunctionName="SQLProjectModel.Store.insert_Department" />
-          <FunctionImportMapping FunctionImportName="insert_Exams" FunctionName="SQLProjectModel.Store.insert_Exams" />
-          <FunctionImportMapping FunctionImportName="insert_instructor" FunctionName="SQLProjectModel.Store.insert_instructor" />
-          <FunctionImportMapping FunctionImportName="insert_instructorCourse" FunctionName="SQLProjectModel.Store.insert_instructorCourse" />
-          <FunctionImportMapping FunctionImportName="insert_question" FunctionName="SQLProjectModel.Store.insert_question" />
-          <FunctionImportMapping FunctionImportName="insert_Student" FunctionName="SQLProjectModel.Store.insert_Student" />
-          <FunctionImportMapping FunctionImportName="insert_studentCourse" FunctionName="SQLProjectModel.Store.insert_studentCourse" />
-          <FunctionImportMapping FunctionImportName="insert_studentExam" FunctionName="SQLProjectModel.Store.insert_studentExam" />
-          <FunctionImportMapping FunctionImportName="insert_studentExamQuestion" FunctionName="SQLProjectModel.Store.insert_studentExamQuestion" />
-          <FunctionImportMapping FunctionImportName="insert_Topics" FunctionName="SQLProjectModel.Store.insert_Topics" />
-          <FunctionImportMapping FunctionImportName="r1_student_info_for_each_department" FunctionName="SQLProjectModel.Store.r1_student_info_for_each_department">
+          <FunctionImportMapping FunctionImportName="AssignExamTOStudent" FunctionName="SQLProjectModel1.Store.AssignExamTOStudent" />
+          <FunctionImportMapping FunctionImportName="correctExam" FunctionName="SQLProjectModel1.Store.correctExam" />
+          <FunctionImportMapping FunctionImportName="delete_choices" FunctionName="SQLProjectModel1.Store.delete_choices" />
+          <FunctionImportMapping FunctionImportName="delete_Course" FunctionName="SQLProjectModel1.Store.delete_Course" />
+          <FunctionImportMapping FunctionImportName="delete_Department" FunctionName="SQLProjectModel1.Store.delete_Department" />
+          <FunctionImportMapping FunctionImportName="delete_Exams" FunctionName="SQLProjectModel1.Store.delete_Exams" />
+          <FunctionImportMapping FunctionImportName="delete_instructor" FunctionName="SQLProjectModel1.Store.delete_instructor" />
+          <FunctionImportMapping FunctionImportName="delete_instructorCourse" FunctionName="SQLProjectModel1.Store.delete_instructorCourse" />
+          <FunctionImportMapping FunctionImportName="delete_Questions" FunctionName="SQLProjectModel1.Store.delete_Questions" />
+          <FunctionImportMapping FunctionImportName="delete_Student" FunctionName="SQLProjectModel1.Store.delete_Student" />
+          <FunctionImportMapping FunctionImportName="delete_studentCourse" FunctionName="SQLProjectModel1.Store.delete_studentCourse" />
+          <FunctionImportMapping FunctionImportName="delete_studentExam" FunctionName="SQLProjectModel1.Store.delete_studentExam" />
+          <FunctionImportMapping FunctionImportName="delete_studentExamQuestionByExamAndQuestion" FunctionName="SQLProjectModel1.Store.delete_studentExamQuestionByExamAndQuestion" />
+          <FunctionImportMapping FunctionImportName="delete_studentExamQuestionByExamAndStudent" FunctionName="SQLProjectModel1.Store.delete_studentExamQuestionByExamAndStudent" />
+          <FunctionImportMapping FunctionImportName="delete_Topics" FunctionName="SQLProjectModel1.Store.delete_Topics" />
+          <FunctionImportMapping FunctionImportName="exam_answers" FunctionName="SQLProjectModel1.Store.exam_answers" />
+          <FunctionImportMapping FunctionImportName="generateExam" FunctionName="SQLProjectModel1.Store.generateExam" />
+          <FunctionImportMapping FunctionImportName="insert_choices" FunctionName="SQLProjectModel1.Store.insert_choices" />
+          <FunctionImportMapping FunctionImportName="insert_Course" FunctionName="SQLProjectModel1.Store.insert_Course" />
+          <FunctionImportMapping FunctionImportName="insert_Department" FunctionName="SQLProjectModel1.Store.insert_Department" />
+          <FunctionImportMapping FunctionImportName="insert_Exams" FunctionName="SQLProjectModel1.Store.insert_Exams" />
+          <FunctionImportMapping FunctionImportName="insert_instructor" FunctionName="SQLProjectModel1.Store.insert_instructor" />
+          <FunctionImportMapping FunctionImportName="insert_instructorCourse" FunctionName="SQLProjectModel1.Store.insert_instructorCourse" />
+          <FunctionImportMapping FunctionImportName="insert_question" FunctionName="SQLProjectModel1.Store.insert_question" />
+          <FunctionImportMapping FunctionImportName="insert_Student" FunctionName="SQLProjectModel1.Store.insert_Student" />
+          <FunctionImportMapping FunctionImportName="insert_studentCourse" FunctionName="SQLProjectModel1.Store.insert_studentCourse" />
+          <FunctionImportMapping FunctionImportName="insert_studentExam" FunctionName="SQLProjectModel1.Store.insert_studentExam" />
+          <FunctionImportMapping FunctionImportName="insert_studentExamQuestion" FunctionName="SQLProjectModel1.Store.insert_studentExamQuestion" />
+          <FunctionImportMapping FunctionImportName="insert_Topics" FunctionName="SQLProjectModel1.Store.insert_Topics" />
+          <FunctionImportMapping FunctionImportName="r1_student_info_for_each_department" FunctionName="SQLProjectModel1.Store.r1_student_info_for_each_department">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.r1_student_info_for_each_department_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.r1_student_info_for_each_department_Result">
                 <ScalarProperty Name="student_ID" ColumnName="student_ID" />
                 <ScalarProperty Name="student_Fname" ColumnName="student_Fname" />
                 <ScalarProperty Name="student_Lname" ColumnName="student_Lname" />
@@ -1577,37 +1568,37 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="r2_student_grades" FunctionName="SQLProjectModel.Store.r2_student_grades">
+          <FunctionImportMapping FunctionImportName="r2_student_grades" FunctionName="SQLProjectModel1.Store.r2_student_grades">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.r2_student_grades_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.r2_student_grades_Result">
                 <ScalarProperty Name="Full_name" ColumnName="Full name" />
                 <ScalarProperty Name="course_name" ColumnName="course_name" />
                 <ScalarProperty Name="exam_grade" ColumnName="exam_grade" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="r3_instructor_courses" FunctionName="SQLProjectModel.Store.r3_instructor_courses">
+          <FunctionImportMapping FunctionImportName="r3_instructor_courses" FunctionName="SQLProjectModel1.Store.r3_instructor_courses">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.r3_instructor_courses_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.r3_instructor_courses_Result">
                 <ScalarProperty Name="instructor_name" ColumnName="instructor_name" />
                 <ScalarProperty Name="course_name" ColumnName="course_name" />
                 <ScalarProperty Name="number_of_students" ColumnName="number of students" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="r4_course_topics" FunctionName="SQLProjectModel.Store.r4_course_topics" />
-          <FunctionImportMapping FunctionImportName="r5_exam_questions" FunctionName="SQLProjectModel.Store.r5_exam_questions">
+          <FunctionImportMapping FunctionImportName="r4_course_topics" FunctionName="SQLProjectModel1.Store.r4_course_topics" />
+          <FunctionImportMapping FunctionImportName="r5_exam_questions" FunctionName="SQLProjectModel1.Store.r5_exam_questions">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.r5_exam_questions_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.r5_exam_questions_Result">
                 <ScalarProperty Name="qusetion_desc" ColumnName="qusetion_desc" />
                 <ScalarProperty Name="choice_description" ColumnName="choice_description" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="r6_student_exam" FunctionName="SQLProjectModel.Store.r6_student_exam" />
-          <FunctionImportMapping FunctionImportName="select_choices" FunctionName="SQLProjectModel.Store.select_choices">
+          <FunctionImportMapping FunctionImportName="r6_student_exam" FunctionName="SQLProjectModel1.Store.r6_student_exam" />
+          <FunctionImportMapping FunctionImportName="select_choices" FunctionName="SQLProjectModel1.Store.select_choices">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.select_choices_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.select_choices_Result">
                 <ScalarProperty Name="choice_ID" ColumnName="choice_ID" />
                 <ScalarProperty Name="choice_description" ColumnName="choice_description" />
                 <ScalarProperty Name="isCorrect" ColumnName="isCorrect" />
@@ -1615,37 +1606,37 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="select_Course" FunctionName="SQLProjectModel.Store.select_Course" />
-          <FunctionImportMapping FunctionImportName="select_department" FunctionName="SQLProjectModel.Store.select_department">
+          <FunctionImportMapping FunctionImportName="select_Course" FunctionName="SQLProjectModel1.Store.select_Course" />
+          <FunctionImportMapping FunctionImportName="select_department" FunctionName="SQLProjectModel1.Store.select_department">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.select_department_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.select_department_Result">
                 <ScalarProperty Name="department_ID" ColumnName="department_ID" />
                 <ScalarProperty Name="department_name" ColumnName="department_name" />
                 <ScalarProperty Name="supervisior_ID" ColumnName="supervisior_ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="select_Exams" FunctionName="SQLProjectModel.Store.select_Exams" />
-          <FunctionImportMapping FunctionImportName="select_Instructor" FunctionName="SQLProjectModel.Store.select_Instructor" />
-          <FunctionImportMapping FunctionImportName="select_instructorCourseByCourse" FunctionName="SQLProjectModel.Store.select_instructorCourseByCourse">
+          <FunctionImportMapping FunctionImportName="select_Exams" FunctionName="SQLProjectModel1.Store.select_Exams" />
+          <FunctionImportMapping FunctionImportName="select_Instructor" FunctionName="SQLProjectModel1.Store.select_Instructor" />
+          <FunctionImportMapping FunctionImportName="select_instructorCourseByCourse" FunctionName="SQLProjectModel1.Store.select_instructorCourseByCourse">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.select_instructorCourseByCourse_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.select_instructorCourseByCourse_Result">
                 <ScalarProperty Name="instructor_ID" ColumnName="instructor_ID" />
                 <ScalarProperty Name="course_ID" ColumnName="course_ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="select_instructorCourseByInstructor" FunctionName="SQLProjectModel.Store.select_instructorCourseByInstructor">
+          <FunctionImportMapping FunctionImportName="select_instructorCourseByInstructor" FunctionName="SQLProjectModel1.Store.select_instructorCourseByInstructor">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.select_instructorCourseByInstructor_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.select_instructorCourseByInstructor_Result">
                 <ScalarProperty Name="instructor_ID" ColumnName="instructor_ID" />
                 <ScalarProperty Name="course_ID" ColumnName="course_ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="select_Questions" FunctionName="SQLProjectModel.Store.select_Questions">
+          <FunctionImportMapping FunctionImportName="select_Questions" FunctionName="SQLProjectModel1.Store.select_Questions">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.select_Questions_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.select_Questions_Result">
                 <ScalarProperty Name="question_ID" ColumnName="question_ID" />
                 <ScalarProperty Name="qusetion_desc" ColumnName="qusetion_desc" />
                 <ScalarProperty Name="question_type" ColumnName="question_type" />
@@ -1653,9 +1644,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="select_Student" FunctionName="SQLProjectModel.Store.select_Student">
+          <FunctionImportMapping FunctionImportName="select_Student" FunctionName="SQLProjectModel1.Store.select_Student">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.select_Student_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.select_Student_Result">
                 <ScalarProperty Name="student_ID" ColumnName="student_ID" />
                 <ScalarProperty Name="student_Fname" ColumnName="student_Fname" />
                 <ScalarProperty Name="student_Lname" ColumnName="student_Lname" />
@@ -1665,44 +1656,44 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="select_studentCourseByCourse" FunctionName="SQLProjectModel.Store.select_studentCourseByCourse">
+          <FunctionImportMapping FunctionImportName="select_studentCourseByCourse" FunctionName="SQLProjectModel1.Store.select_studentCourseByCourse">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.select_studentCourseByCourse_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.select_studentCourseByCourse_Result">
                 <ScalarProperty Name="student_ID" ColumnName="student_ID" />
                 <ScalarProperty Name="course_ID" ColumnName="course_ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="select_studentCourseByStudent" FunctionName="SQLProjectModel.Store.select_studentCourseByStudent">
+          <FunctionImportMapping FunctionImportName="select_studentCourseByStudent" FunctionName="SQLProjectModel1.Store.select_studentCourseByStudent">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.select_studentCourseByStudent_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.select_studentCourseByStudent_Result">
                 <ScalarProperty Name="student_ID" ColumnName="student_ID" />
                 <ScalarProperty Name="course_ID" ColumnName="course_ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="select_studentExamByExam" FunctionName="SQLProjectModel.Store.select_studentExamByExam">
+          <FunctionImportMapping FunctionImportName="select_studentExamByExam" FunctionName="SQLProjectModel1.Store.select_studentExamByExam">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.select_studentExamByExam_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.select_studentExamByExam_Result">
                 <ScalarProperty Name="student_ID" ColumnName="student_ID" />
                 <ScalarProperty Name="exam_ID" ColumnName="exam_ID" />
                 <ScalarProperty Name="exam_grade" ColumnName="exam_grade" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="select_studentExamByExamAndStudebt" FunctionName="SQLProjectModel.Store.select_studentExamByExamAndStudebt" />
-          <FunctionImportMapping FunctionImportName="select_studentExamByStudent" FunctionName="SQLProjectModel.Store.select_studentExamByStudent">
+          <FunctionImportMapping FunctionImportName="select_studentExamByExamAndStudebt" FunctionName="SQLProjectModel1.Store.select_studentExamByExamAndStudebt" />
+          <FunctionImportMapping FunctionImportName="select_studentExamByStudent" FunctionName="SQLProjectModel1.Store.select_studentExamByStudent">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.select_studentExamByStudent_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.select_studentExamByStudent_Result">
                 <ScalarProperty Name="student_ID" ColumnName="student_ID" />
                 <ScalarProperty Name="exam_ID" ColumnName="exam_ID" />
                 <ScalarProperty Name="exam_grade" ColumnName="exam_grade" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="select_studentExamQuestionByExam" FunctionName="SQLProjectModel.Store.select_studentExamQuestionByExam">
+          <FunctionImportMapping FunctionImportName="select_studentExamQuestionByExam" FunctionName="SQLProjectModel1.Store.select_studentExamQuestionByExam">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.select_studentExamQuestionByExam_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.select_studentExamQuestionByExam_Result">
                 <ScalarProperty Name="exam_ID" ColumnName="exam_ID" />
                 <ScalarProperty Name="qustion_ID" ColumnName="qustion_ID" />
                 <ScalarProperty Name="student_answer" ColumnName="student_answer" />
@@ -1710,10 +1701,10 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="select_studentExamQuestionByExamAndStudent" FunctionName="SQLProjectModel.Store.select_studentExamQuestionByExamAndStudent" />
-          <FunctionImportMapping FunctionImportName="select_studentExamQuestionByStudent" FunctionName="SQLProjectModel.Store.select_studentExamQuestionByStudent">
+          <FunctionImportMapping FunctionImportName="select_studentExamQuestionByExamAndStudent" FunctionName="SQLProjectModel1.Store.select_studentExamQuestionByExamAndStudent" />
+          <FunctionImportMapping FunctionImportName="select_studentExamQuestionByStudent" FunctionName="SQLProjectModel1.Store.select_studentExamQuestionByStudent">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.select_studentExamQuestionByStudent_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.select_studentExamQuestionByStudent_Result">
                 <ScalarProperty Name="exam_ID" ColumnName="exam_ID" />
                 <ScalarProperty Name="qustion_ID" ColumnName="qustion_ID" />
                 <ScalarProperty Name="student_answer" ColumnName="student_answer" />
@@ -1721,21 +1712,21 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="select_Topics" FunctionName="SQLProjectModel.Store.select_Topics" />
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="SQLProjectModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="SQLProjectModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="SQLProjectModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="SQLProjectModel.Store.sp_helpdiagramdefinition">
+          <FunctionImportMapping FunctionImportName="select_Topics" FunctionName="SQLProjectModel1.Store.select_Topics" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="SQLProjectModel1.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="SQLProjectModel1.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="SQLProjectModel1.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="SQLProjectModel1.Store.sp_helpdiagramdefinition">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.sp_helpdiagramdefinition_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.sp_helpdiagramdefinition_Result">
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="SQLProjectModel.Store.sp_helpdiagrams">
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="SQLProjectModel1.Store.sp_helpdiagrams">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SQLProjectModel.sp_helpdiagrams_Result">
+              <ComplexTypeMapping TypeName="SQLProjectModel1.sp_helpdiagrams_Result">
                 <ScalarProperty Name="Database" ColumnName="Database" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -1744,18 +1735,18 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="SQLProjectModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="SQLProjectModel.Store.sp_upgraddiagrams" />
-          <FunctionImportMapping FunctionImportName="update_choices" FunctionName="SQLProjectModel.Store.update_choices" />
-          <FunctionImportMapping FunctionImportName="update_Course" FunctionName="SQLProjectModel.Store.update_Course" />
-          <FunctionImportMapping FunctionImportName="update_Department" FunctionName="SQLProjectModel.Store.update_Department" />
-          <FunctionImportMapping FunctionImportName="update_Exams" FunctionName="SQLProjectModel.Store.update_Exams" />
-          <FunctionImportMapping FunctionImportName="update_Instructor" FunctionName="SQLProjectModel.Store.update_Instructor" />
-          <FunctionImportMapping FunctionImportName="update_questions" FunctionName="SQLProjectModel.Store.update_questions" />
-          <FunctionImportMapping FunctionImportName="update_Student" FunctionName="SQLProjectModel.Store.update_Student" />
-          <FunctionImportMapping FunctionImportName="update_studentExam" FunctionName="SQLProjectModel.Store.update_studentExam" />
-          <FunctionImportMapping FunctionImportName="update_studentExamQuestion" FunctionName="SQLProjectModel.Store.update_studentExamQuestion" />
-          <FunctionImportMapping FunctionImportName="update_Topics" FunctionName="SQLProjectModel.Store.update_Topics" />
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="SQLProjectModel1.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="SQLProjectModel1.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="update_choices" FunctionName="SQLProjectModel1.Store.update_choices" />
+          <FunctionImportMapping FunctionImportName="update_Course" FunctionName="SQLProjectModel1.Store.update_Course" />
+          <FunctionImportMapping FunctionImportName="update_Department" FunctionName="SQLProjectModel1.Store.update_Department" />
+          <FunctionImportMapping FunctionImportName="update_Exams" FunctionName="SQLProjectModel1.Store.update_Exams" />
+          <FunctionImportMapping FunctionImportName="update_Instructor" FunctionName="SQLProjectModel1.Store.update_Instructor" />
+          <FunctionImportMapping FunctionImportName="update_questions" FunctionName="SQLProjectModel1.Store.update_questions" />
+          <FunctionImportMapping FunctionImportName="update_Student" FunctionName="SQLProjectModel1.Store.update_Student" />
+          <FunctionImportMapping FunctionImportName="update_studentExam" FunctionName="SQLProjectModel1.Store.update_studentExam" />
+          <FunctionImportMapping FunctionImportName="update_studentExamQuestion" FunctionName="SQLProjectModel1.Store.update_studentExamQuestion" />
+          <FunctionImportMapping FunctionImportName="update_Topics" FunctionName="SQLProjectModel1.Store.update_Topics" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

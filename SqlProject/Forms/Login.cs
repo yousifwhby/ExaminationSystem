@@ -35,6 +35,7 @@ namespace SqlProject
                 if (Usname!=null && Usname.student_UserName == username_TB.Text && Usname.student_Password == password_TB.Text)
                 {
                      MainApp.UserID = Usname.student_ID;
+                        MainApp.UserName = Usname.student_Lname;
                      this.Hide();
                      MainApp.studentForm = new Studentf();
                      MainApp.studentForm.Show();
@@ -53,6 +54,8 @@ namespace SqlProject
                 if (Usname != null &&Usname.instructor_UserName == username_TB.Text && Usname.instructor_Password == password_TB.Text)
                 {
                     MainApp.UserID = Usname.instructor_ID;
+                     MainApp.UserName = Usname.instructor_name;
+
                     this.Hide();
                     MainApp.InstructorForm = new Instructorf();
                     MainApp.InstructorForm.Show();

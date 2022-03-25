@@ -15,10 +15,10 @@ namespace SqlProject
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class SQLProjectEntities2 : DbContext
+    public partial class SQLProjectEntities3 : DbContext
     {
-        public SQLProjectEntities2()
-            : base("name=SQLProjectEntities2")
+        public SQLProjectEntities3()
+            : base("name=SQLProjectEntities3")
         {
         }
     
@@ -50,6 +50,19 @@ namespace SqlProject
                 new ObjectParameter("stdID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("AssignExamTOStudent", examIDParameter, stdIDParameter);
+        }
+    
+        public virtual ObjectResult<string> correctExam(Nullable<int> examID, Nullable<int> stdID)
+        {
+            var examIDParameter = examID.HasValue ?
+                new ObjectParameter("examID", examID) :
+                new ObjectParameter("examID", typeof(int));
+    
+            var stdIDParameter = stdID.HasValue ?
+                new ObjectParameter("stdID", stdID) :
+                new ObjectParameter("stdID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("correctExam", examIDParameter, stdIDParameter);
         }
     
         public virtual ObjectResult<string> delete_choices(Nullable<int> id)
@@ -189,7 +202,7 @@ namespace SqlProject
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("delete_Topics", idParameter);
         }
     
-        public virtual int exam_answers(Nullable<int> examID, Nullable<int> stdID, string stdAnswer1, string stdAnswer2, string stdAnswer3, string stdAnswer4, string stdAnswer5, string stdAnswer6, string stdAnswer7, string stdAnswer8, string stdAnswer9, string stdAnswer10)
+        public virtual ObjectResult<string> exam_answers(Nullable<int> examID, Nullable<int> stdID, Nullable<int> questionRN, string stdAnswer)
         {
             var examIDParameter = examID.HasValue ?
                 new ObjectParameter("examID", examID) :
@@ -199,47 +212,15 @@ namespace SqlProject
                 new ObjectParameter("stdID", stdID) :
                 new ObjectParameter("stdID", typeof(int));
     
-            var stdAnswer1Parameter = stdAnswer1 != null ?
-                new ObjectParameter("stdAnswer1", stdAnswer1) :
-                new ObjectParameter("stdAnswer1", typeof(string));
+            var questionRNParameter = questionRN.HasValue ?
+                new ObjectParameter("QuestionRN", questionRN) :
+                new ObjectParameter("QuestionRN", typeof(int));
     
-            var stdAnswer2Parameter = stdAnswer2 != null ?
-                new ObjectParameter("stdAnswer2", stdAnswer2) :
-                new ObjectParameter("stdAnswer2", typeof(string));
+            var stdAnswerParameter = stdAnswer != null ?
+                new ObjectParameter("stdAnswer", stdAnswer) :
+                new ObjectParameter("stdAnswer", typeof(string));
     
-            var stdAnswer3Parameter = stdAnswer3 != null ?
-                new ObjectParameter("stdAnswer3", stdAnswer3) :
-                new ObjectParameter("stdAnswer3", typeof(string));
-    
-            var stdAnswer4Parameter = stdAnswer4 != null ?
-                new ObjectParameter("stdAnswer4", stdAnswer4) :
-                new ObjectParameter("stdAnswer4", typeof(string));
-    
-            var stdAnswer5Parameter = stdAnswer5 != null ?
-                new ObjectParameter("stdAnswer5", stdAnswer5) :
-                new ObjectParameter("stdAnswer5", typeof(string));
-    
-            var stdAnswer6Parameter = stdAnswer6 != null ?
-                new ObjectParameter("stdAnswer6", stdAnswer6) :
-                new ObjectParameter("stdAnswer6", typeof(string));
-    
-            var stdAnswer7Parameter = stdAnswer7 != null ?
-                new ObjectParameter("stdAnswer7", stdAnswer7) :
-                new ObjectParameter("stdAnswer7", typeof(string));
-    
-            var stdAnswer8Parameter = stdAnswer8 != null ?
-                new ObjectParameter("stdAnswer8", stdAnswer8) :
-                new ObjectParameter("stdAnswer8", typeof(string));
-    
-            var stdAnswer9Parameter = stdAnswer9 != null ?
-                new ObjectParameter("stdAnswer9", stdAnswer9) :
-                new ObjectParameter("stdAnswer9", typeof(string));
-    
-            var stdAnswer10Parameter = stdAnswer10 != null ?
-                new ObjectParameter("stdAnswer10", stdAnswer10) :
-                new ObjectParameter("stdAnswer10", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("exam_answers", examIDParameter, stdIDParameter, stdAnswer1Parameter, stdAnswer2Parameter, stdAnswer3Parameter, stdAnswer4Parameter, stdAnswer5Parameter, stdAnswer6Parameter, stdAnswer7Parameter, stdAnswer8Parameter, stdAnswer9Parameter, stdAnswer10Parameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("exam_answers", examIDParameter, stdIDParameter, questionRNParameter, stdAnswerParameter);
         }
     
         public virtual ObjectResult<string> generateExam(string courseName, Nullable<int> tFnum, Nullable<int> mcqNum, Nullable<int> examDuration)

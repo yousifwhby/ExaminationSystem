@@ -44,7 +44,7 @@ namespace SqlProject
             // 
             this.QuestNo.AutoSize = true;
             this.QuestNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.QuestNo.Location = new System.Drawing.Point(13, 19);
+            this.QuestNo.Location = new System.Drawing.Point(5, 5);
             this.QuestNo.Name = "QuestNo";
             this.QuestNo.Size = new System.Drawing.Size(15, 15);
             this.QuestNo.TabIndex = 0;
@@ -54,7 +54,7 @@ namespace SqlProject
             // 
             this.Seprate.AutoSize = true;
             this.Seprate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Seprate.Location = new System.Drawing.Point(34, 19);
+            this.Seprate.Location = new System.Drawing.Point(26, 5);
             this.Seprate.Name = "Seprate";
             this.Seprate.Size = new System.Drawing.Size(12, 15);
             this.Seprate.TabIndex = 1;
@@ -64,7 +64,7 @@ namespace SqlProject
             // 
             this.QuesDesc.AutoSize = true;
             this.QuesDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.QuesDesc.Location = new System.Drawing.Point(62, 19);
+            this.QuesDesc.Location = new System.Drawing.Point(54, 5);
             this.QuesDesc.Name = "QuesDesc";
             this.QuesDesc.Size = new System.Drawing.Size(64, 15);
             this.QuesDesc.TabIndex = 2;
@@ -73,7 +73,7 @@ namespace SqlProject
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(37, 71);
+            this.radioButton1.Location = new System.Drawing.Point(29, 38);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(14, 13);
             this.radioButton1.TabIndex = 3;
@@ -83,7 +83,7 @@ namespace SqlProject
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(37, 114);
+            this.radioButton2.Location = new System.Drawing.Point(29, 65);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(14, 13);
             this.radioButton2.TabIndex = 4;
@@ -93,7 +93,7 @@ namespace SqlProject
             // radioButton3
             // 
             this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(37, 157);
+            this.radioButton3.Location = new System.Drawing.Point(29, 90);
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(14, 13);
             this.radioButton3.TabIndex = 5;
@@ -104,7 +104,7 @@ namespace SqlProject
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(62, 71);
+            this.label1.Location = new System.Drawing.Point(54, 38);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 15);
             this.label1.TabIndex = 6;
@@ -114,7 +114,7 @@ namespace SqlProject
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(62, 114);
+            this.label2.Location = new System.Drawing.Point(54, 65);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 15);
             this.label2.TabIndex = 7;
@@ -124,7 +124,7 @@ namespace SqlProject
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(62, 157);
+            this.label3.Location = new System.Drawing.Point(54, 90);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 15);
             this.label3.TabIndex = 8;
@@ -144,7 +144,7 @@ namespace SqlProject
             this.Controls.Add(this.Seprate);
             this.Controls.Add(this.QuestNo);
             this.Name = "QuestionsControl";
-            this.Size = new System.Drawing.Size(547, 191);
+            this.Size = new System.Drawing.Size(547, 114);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -155,9 +155,9 @@ namespace SqlProject
         private System.Windows.Forms.Label QuestNo;
         private System.Windows.Forms.Label Seprate;
         private System.Windows.Forms.Label QuesDesc;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton3;
+        public System.Windows.Forms.RadioButton radioButton1;
+        public System.Windows.Forms.RadioButton radioButton2;
+        public System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
