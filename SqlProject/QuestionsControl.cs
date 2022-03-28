@@ -25,7 +25,7 @@ namespace SqlProject
             {
                 label3.Visible = false;
                 radioButton3.Visible = false;
-                this.Size = new Size(555, 100);
+                this.Size = new Size(868, 100);
             }
         }
        

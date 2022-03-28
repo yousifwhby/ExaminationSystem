@@ -144,7 +144,7 @@ namespace SqlProject
             this.Controls.Add(this.Seprate);
             this.Controls.Add(this.QuestNo);
             this.Name = "QuestionsControl";
-            this.Size = new System.Drawing.Size(547, 114);
+            this.Size = new System.Drawing.Size(868, 114);
             this.ResumeLayout(false);
             this.PerformLayout();
 
