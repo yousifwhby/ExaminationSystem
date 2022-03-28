@@ -36,7 +36,8 @@ namespace SqlProject
                 {
                      MainApp.UserID = Usname.student_ID;
                         MainApp.UserName = Usname.student_Lname;
-                     this.Hide();
+                        MainApp.std_us = Usname;
+                        this.Hide();
                      MainApp.studentForm = new Studentf();
                      MainApp.studentForm.Show();
                 }
@@ -55,6 +56,7 @@ namespace SqlProject
                 {
                     MainApp.UserID = Usname.instructor_ID;
                      MainApp.UserName = Usname.instructor_name;
+                        
 
                     this.Hide();
                     MainApp.InstructorForm = new Instructorf();

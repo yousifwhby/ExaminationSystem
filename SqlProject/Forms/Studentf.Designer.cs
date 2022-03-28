@@ -35,9 +35,20 @@ namespace SqlProject
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.StartExam_btn = new System.Windows.Forms.Button();
+            this.Courses = new System.Windows.Forms.ComboBox();
+            this.Exams = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.StudentInfo_GV = new System.Windows.Forms.DataGridView();
+            this.Cousrename = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Exam_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Grade = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.StudentInfo_GV)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -52,6 +63,9 @@ namespace SqlProject
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.StudentInfo_GV);
             this.tabPage1.Controls.Add(this.StdName);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -84,6 +98,10 @@ namespace SqlProject
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label4);
+            this.tabPage2.Controls.Add(this.label2);
+            this.tabPage2.Controls.Add(this.Exams);
+            this.tabPage2.Controls.Add(this.Courses);
             this.tabPage2.Controls.Add(this.StartExam_btn);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -95,13 +113,97 @@ namespace SqlProject
             // 
             // StartExam_btn
             // 
-            this.StartExam_btn.Location = new System.Drawing.Point(228, 141);
+            this.StartExam_btn.Location = new System.Drawing.Point(176, 170);
             this.StartExam_btn.Name = "StartExam_btn";
-            this.StartExam_btn.Size = new System.Drawing.Size(118, 23);
+            this.StartExam_btn.Size = new System.Drawing.Size(179, 23);
             this.StartExam_btn.TabIndex = 0;
             this.StartExam_btn.Text = "Start Exam";
             this.StartExam_btn.UseVisualStyleBackColor = true;
             this.StartExam_btn.Click += new System.EventHandler(this.StartExam_btn_Click);
+            // 
+            // Courses
+            // 
+            this.Courses.FormattingEnabled = true;
+            this.Courses.Location = new System.Drawing.Point(69, 90);
+            this.Courses.Name = "Courses";
+            this.Courses.Size = new System.Drawing.Size(142, 21);
+            this.Courses.TabIndex = 1;
+            this.Courses.SelectedIndexChanged += new System.EventHandler(this.Courses_SelectedIndexChanged);
+            // 
+            // Exams
+            // 
+            this.Exams.FormattingEnabled = true;
+            this.Exams.Location = new System.Drawing.Point(331, 90);
+            this.Exams.Name = "Exams";
+            this.Exams.Size = new System.Drawing.Size(143, 21);
+            this.Exams.TabIndex = 2;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Perpetua", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(66, 64);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 17);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Courses:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Perpetua", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(328, 64);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(114, 17);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Avilable Exames:";
+            // 
+            // StudentInfo_GV
+            // 
+            this.StudentInfo_GV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.StudentInfo_GV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Cousrename,
+            this.Exam_ID,
+            this.Grade});
+            this.StudentInfo_GV.Location = new System.Drawing.Point(181, 7);
+            this.StudentInfo_GV.Name = "StudentInfo_GV";
+            this.StudentInfo_GV.Size = new System.Drawing.Size(343, 308);
+            this.StudentInfo_GV.TabIndex = 2;
+            // 
+            // Cousrename
+            // 
+            this.Cousrename.HeaderText = "Course Name";
+            this.Cousrename.Name = "Cousrename";
+            // 
+            // Exam_ID
+            // 
+            this.Exam_ID.HeaderText = "Exam ID";
+            this.Exam_ID.Name = "Exam_ID";
+            // 
+            // Grade
+            // 
+            this.Grade.HeaderText = "Grade";
+            this.Grade.Name = "Grade";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Sylfaen", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(24, 90);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(37, 18);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Date";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Sylfaen", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(7, 62);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(94, 18);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Today\'s Date:";
             // 
             // Studentf
             // 
@@ -118,6 +220,8 @@ namespace SqlProject
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.StudentInfo_GV)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -130,5 +234,15 @@ namespace SqlProject
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button StartExam_btn;
+        private System.Windows.Forms.ComboBox Exams;
+        private System.Windows.Forms.ComboBox Courses;
+        private System.Windows.Forms.DataGridView StudentInfo_GV;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cousrename;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Exam_ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Grade;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label5;
     }
 }

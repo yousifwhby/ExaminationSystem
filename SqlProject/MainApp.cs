@@ -15,6 +15,7 @@ namespace SqlProject
         public static SQLProjectEntities3 entity;
         public static int UserID;
         public static string UserName;
+        public static student std_us;
 
 
 
