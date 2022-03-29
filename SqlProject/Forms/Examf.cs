@@ -12,7 +12,7 @@ namespace SqlProject
 {
     public partial class Examf : Form
     {
-        //af
+        //afhg
         ClassExam exam;
         ClassQuestion q;
         ClassChoice c;
