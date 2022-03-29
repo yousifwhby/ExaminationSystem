@@ -24,7 +24,7 @@ namespace SqlProject
 
         }
 
-        private void Studentf_FormClosing(object sender, FormClosingEventArgs e)
+        public void Studentf_FormClosing(object sender, FormClosingEventArgs e)
         {
             
             Application.Exit();

@@ -89,7 +89,7 @@ namespace SqlProject
                 MainApp.entity = new SQLProjectEntities3();
                 MessageBox.Show("submitted!");
                 MessageBox.Show($"{exam.questions[0].studentChoiceDesc} \n,{exam.questions[1].studentChoiceDesc} \n ,{exam.questions[2].studentChoiceDesc} \n ,{exam.questions[3].studentChoiceDesc} \n,{exam.questions[4].studentChoiceDesc}\n,{exam.questions[5].studentChoiceDesc} \n ,{exam.questions[6].studentChoiceDesc} \n ,{exam.questions[7].studentChoiceDesc} \n ,{exam.questions[8].studentChoiceDesc} \n ,{exam.questions[9].studentChoiceDesc}");
-
+                MainApp.studentForm.Studentf_Load(null, null);
                 MainApp.examForm.Close();
             }
         }
