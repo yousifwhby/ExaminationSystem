@@ -80,10 +80,10 @@ namespace SqlProject
                     exam.questions[i].studentChoiceDesc = CheckedAns;
                     i++;
                 }
-                for (int k = 0; i < 10; k++)
+                for (int k = 0; k < 10; k++)
 
                 {
-                    MainApp.entity.exam_answers(ExamID, MainApp.UserID, i + 1, exam.questions[i].studentChoiceDesc);
+                    MainApp.entity.exam_answers(ExamID, MainApp.UserID, k + 1, exam.questions[k].studentChoiceDesc);
 
                 }
                 MainApp.entity = new SQLProjectEntities3();
