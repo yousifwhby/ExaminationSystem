@@ -147,7 +147,7 @@ namespace SqlProject
                 {
                     if(textBoxMCQQS.Text != string.Empty && int.TryParse(textBoxMCQQS.Text, out int res2) == true)
                     {
-                        if (res + res2 >= 10)
+                        if (res + res2 == 10)
                         {
                             if(textBoxExamDuratn.Text != string.Empty && int.TryParse(textBoxExamDuratn.Text, out int res3) == true)
                             {
@@ -162,7 +162,7 @@ namespace SqlProject
                         }
                         else
                         {
-                            MessageBox.Show("Exam must have 10 or more Questions");
+                            MessageBox.Show("Exam must contain 10 Questions");
                         }
                     }
                     else

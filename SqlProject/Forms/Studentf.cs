@@ -52,7 +52,6 @@ namespace SqlProject
             {
                 MessageBox.Show("Choose an exam or ask ur instruactor to assig exam to You");
             }
-
         }
 
         private void Courses_SelectedIndexChanged(object sender, EventArgs e)
@@ -69,12 +68,10 @@ namespace SqlProject
                      select es;
             if(ex != null)
             {
-
                 foreach (var EX in ex)
                 {
                     Exams.Items.Add(EX.exam_ID);
                 }
-
             }
             else
             {
@@ -86,13 +83,9 @@ namespace SqlProject
 
         }
         public void fillExamsTab()
-        {
-
-            
-                
+        {             
                 foreach (var c in MainApp.std_us.courses)
                 {
-
                  Courses.Items.Add(new KeyValuePair<int, string>(c.course_ID, c.course_name));
                 }
                 Courses.DisplayMember = "Value";
@@ -107,7 +100,6 @@ namespace SqlProject
 
         public void fillCourseTab()
         {
-
             var studentgrades = from g in MainApp.entity.student_exam
                                 join c in MainApp.entity.exams on g.exam_ID equals c.exam_ID
                                 join courName in MainApp.entity.courses on c.course_ID equals courName.course_ID
@@ -118,10 +110,7 @@ namespace SqlProject
             {
                 string grade = item.exam_grade != null ? item.exam_grade.ToString() : "Exam is available ";
                StudentInfo_GV.Rows.Add(item.course_name, item.exam_ID,grade);
-
-
             }
         }
-
     }
 }
