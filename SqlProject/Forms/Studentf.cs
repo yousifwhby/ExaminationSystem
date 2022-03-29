@@ -17,7 +17,7 @@ namespace SqlProject
 
         public Studentf()
         {
-
+            //intial
             InitializeComponent();
             StdName.Text = MainApp.UserName.ToUpper();
             label3.Text = DateTime.Today.ToString("d");
