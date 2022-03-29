@@ -16,6 +16,7 @@ namespace SqlProject
         ClassQuestion q;
         ClassChoice c;
         int ExamID;
+        //a
         public Examf(int eid)
         {
             InitializeComponent();
