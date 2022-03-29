@@ -30,7 +30,7 @@ namespace SqlProject
             Application.Exit();
         }
 
-        private void Studentf_Load(object sender, EventArgs e)
+        public void Studentf_Load(object sender, EventArgs e)
         {
             fillExamsTab();
             fillCourseTab();
