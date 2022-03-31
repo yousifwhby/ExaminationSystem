@@ -64,7 +64,7 @@ namespace SqlProject
         private void submitBtn_Click(object sender, EventArgs e)
         {
 
-            DialogResult res = MessageBox.Show("Are You Want to Submit Your Answers?","Submitting",MessageBoxButtons.YesNo);
+            DialogResult res = MessageBox.Show("Do You Want to Submit Your Answers?","Submitting",MessageBoxButtons.YesNo);
             if (res == DialogResult.Yes)
             {
                 int i = 0;

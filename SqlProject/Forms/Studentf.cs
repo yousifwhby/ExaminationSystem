@@ -24,13 +24,13 @@ namespace SqlProject
 
         }
 
-        public void Studentf_FormClosing(object sender, FormClosingEventArgs e)
+        private void Studentf_FormClosing(object sender, FormClosingEventArgs e)
         {
             
             Application.Exit();
         }
 
-        private void Studentf_Load(object sender, EventArgs e)
+        public void Studentf_Load(object sender, EventArgs e)
         {
             fillExamsTab();
             fillCourseTab();
