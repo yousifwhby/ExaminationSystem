@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SqlProject.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,8 @@ namespace SqlProject
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(MainApp.loginForm);
+            Application.Run(new Admin());
+            //MainApp.loginForm
         }
     }
 }
