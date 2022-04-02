@@ -137,6 +137,7 @@ namespace SqlProject
             //students tab
             RerenderStudents(comboBoxStudentsID);
             RerenderDepartments(comboBoxDepINStudentsTab);
+            
         }
 
         private void buttonGenerateExam_Click(object sender, EventArgs e)
@@ -184,7 +185,7 @@ namespace SqlProject
         private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBoxCoursesInAssignExamTab.Items.Clear();
-            comboBoxDepartmentInAssignExamTab.Items.Clear();
+            //comboBoxDepartmentInAssignExamTab.Items.Clear();
             comboBoxExamsInAssignExamTab.Items.Clear();
             comboBoxSelectCourseInGenerateExamTab.Items.Clear();
             listBox1.Items.Clear();
@@ -192,7 +193,7 @@ namespace SqlProject
             //exams tab
             RerenderCourses(comboBoxSelectCourseInGenerateExamTab);
             RerenderCourses(comboBoxCoursesInAssignExamTab);
-            RerenderDepartments(comboBoxDepartmentInAssignExamTab);
+            //RerenderDepartments(comboBoxDepartmentInAssignExamTab);
 
         }
 
@@ -202,6 +203,15 @@ namespace SqlProject
             if(exams == 0)
             {
                 MessageBox.Show($"there is no exams for {comboBoxCoursesInAssignExamTab.Text}");
+            }
+            else
+            {
+                var items = (from C in MainApp.entity.courses where C.course_name == comboBoxCoursesInAssignExamTab.Text select C.students.Select(a=>a.department.department_name).Distinct()).FirstOrDefault();
+                comboBoxDepartmentInAssignExamTab.Items.Clear();
+                foreach (var item in items)
+                {
+                    comboBoxDepartmentInAssignExamTab.Items.Add(item);
+                }
             }
         }
 

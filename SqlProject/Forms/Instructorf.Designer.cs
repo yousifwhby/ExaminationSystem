@@ -49,17 +49,26 @@ namespace SqlProject
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.comboBoxDepartmentInAssignExamTab = new System.Windows.Forms.ComboBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dataGridViewExamQs = new System.Windows.Forms.DataGridView();
+            this.qs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.c1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.c2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.c3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label9 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.comboBoxCoursesInAssignExamTab = new System.Windows.Forms.ComboBox();
             this.comboBoxExamsInAssignExamTab = new System.Windows.Forms.ComboBox();
             this.buttonAssignExam = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label19 = new System.Windows.Forms.Label();
+            this.buttonUpdate = new System.Windows.Forms.Button();
+            this.comboBoxStudentsID = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.textBoxStdPass2 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.comboBoxDepINStudentsTab = new System.Windows.Forms.ComboBox();
@@ -74,15 +83,6 @@ namespace SqlProject
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.dataGridViewExamQs = new System.Windows.Forms.DataGridView();
-            this.qs = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.c1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.c2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.c3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.comboBoxStudentsID = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.buttonUpdate = new System.Windows.Forms.Button();
-            this.label19 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -92,8 +92,8 @@ namespace SqlProject
             this.tabPage4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExamQs)).BeginInit();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -305,6 +305,15 @@ namespace SqlProject
             this.comboBoxDepartmentInAssignExamTab.TabIndex = 6;
             this.comboBoxDepartmentInAssignExamTab.SelectedIndexChanged += new System.EventHandler(this.comboBoxDepartmentInAssignExamTab_SelectedIndexChanged);
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.HorizontalScrollbar = true;
+            this.listBox1.Location = new System.Drawing.Point(455, 27);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(72, 121);
+            this.listBox1.TabIndex = 15;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -340,6 +349,47 @@ namespace SqlProject
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exam";
             // 
+            // dataGridViewExamQs
+            // 
+            this.dataGridViewExamQs.AllowUserToAddRows = false;
+            this.dataGridViewExamQs.AllowUserToDeleteRows = false;
+            this.dataGridViewExamQs.AllowUserToOrderColumns = true;
+            this.dataGridViewExamQs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewExamQs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.qs,
+            this.c1,
+            this.c2,
+            this.c3});
+            this.dataGridViewExamQs.Location = new System.Drawing.Point(9, 111);
+            this.dataGridViewExamQs.Name = "dataGridViewExamQs";
+            this.dataGridViewExamQs.ReadOnly = true;
+            this.dataGridViewExamQs.Size = new System.Drawing.Size(291, 237);
+            this.dataGridViewExamQs.TabIndex = 17;
+            // 
+            // qs
+            // 
+            this.qs.HeaderText = "Question";
+            this.qs.Name = "qs";
+            this.qs.ReadOnly = true;
+            // 
+            // c1
+            // 
+            this.c1.HeaderText = "Choice 1";
+            this.c1.Name = "c1";
+            this.c1.ReadOnly = true;
+            // 
+            // c2
+            // 
+            this.c2.HeaderText = "Choice 2";
+            this.c2.Name = "c2";
+            this.c2.ReadOnly = true;
+            // 
+            // c3
+            // 
+            this.c3.HeaderText = "Choice 3";
+            this.c3.Name = "c3";
+            this.c3.ReadOnly = true;
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -348,15 +398,6 @@ namespace SqlProject
             this.label9.Size = new System.Drawing.Size(128, 13);
             this.label9.TabIndex = 16;
             this.label9.Text = "Selected Exam Questions";
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.HorizontalScrollbar = true;
-            this.listBox1.Location = new System.Drawing.Point(455, 27);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(72, 121);
-            this.listBox1.TabIndex = 15;
             // 
             // label6
             // 
@@ -433,6 +474,46 @@ namespace SqlProject
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "Students";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(419, 51);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(128, 52);
+            this.label19.TabIndex = 18;
+            this.label19.Text = "Note:\r\nID is added automatically \r\nin case of inserting \r\na new Student";
+            // 
+            // buttonUpdate
+            // 
+            this.buttonUpdate.Location = new System.Drawing.Point(272, 360);
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Size = new System.Drawing.Size(114, 23);
+            this.buttonUpdate.TabIndex = 17;
+            this.buttonUpdate.Text = "Update";
+            this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
+            // 
+            // comboBoxStudentsID
+            // 
+            this.comboBoxStudentsID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStudentsID.FormattingEnabled = true;
+            this.comboBoxStudentsID.Location = new System.Drawing.Point(202, 62);
+            this.comboBoxStudentsID.Name = "comboBoxStudentsID";
+            this.comboBoxStudentsID.Size = new System.Drawing.Size(195, 21);
+            this.comboBoxStudentsID.TabIndex = 16;
+            this.comboBoxStudentsID.SelectedIndexChanged += new System.EventHandler(this.comboBoxStudentsID_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(86, 61);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(74, 17);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Student ID";
             // 
             // textBoxStdPass2
             // 
@@ -560,87 +641,6 @@ namespace SqlProject
             this.label8.TabIndex = 0;
             this.label8.Text = "Add New Student ";
             // 
-            // dataGridViewExamQs
-            // 
-            this.dataGridViewExamQs.AllowUserToAddRows = false;
-            this.dataGridViewExamQs.AllowUserToDeleteRows = false;
-            this.dataGridViewExamQs.AllowUserToOrderColumns = true;
-            this.dataGridViewExamQs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewExamQs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.qs,
-            this.c1,
-            this.c2,
-            this.c3});
-            this.dataGridViewExamQs.Location = new System.Drawing.Point(9, 111);
-            this.dataGridViewExamQs.Name = "dataGridViewExamQs";
-            this.dataGridViewExamQs.ReadOnly = true;
-            this.dataGridViewExamQs.Size = new System.Drawing.Size(291, 237);
-            this.dataGridViewExamQs.TabIndex = 17;
-            // 
-            // qs
-            // 
-            this.qs.HeaderText = "Question";
-            this.qs.Name = "qs";
-            this.qs.ReadOnly = true;
-            // 
-            // c1
-            // 
-            this.c1.HeaderText = "Choice 1";
-            this.c1.Name = "c1";
-            this.c1.ReadOnly = true;
-            // 
-            // c2
-            // 
-            this.c2.HeaderText = "Choice 2";
-            this.c2.Name = "c2";
-            this.c2.ReadOnly = true;
-            // 
-            // c3
-            // 
-            this.c3.HeaderText = "Choice 3";
-            this.c3.Name = "c3";
-            this.c3.ReadOnly = true;
-            // 
-            // comboBoxStudentsID
-            // 
-            this.comboBoxStudentsID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStudentsID.FormattingEnabled = true;
-            this.comboBoxStudentsID.Location = new System.Drawing.Point(202, 62);
-            this.comboBoxStudentsID.Name = "comboBoxStudentsID";
-            this.comboBoxStudentsID.Size = new System.Drawing.Size(195, 21);
-            this.comboBoxStudentsID.TabIndex = 16;
-            this.comboBoxStudentsID.SelectedIndexChanged += new System.EventHandler(this.comboBoxStudentsID_SelectedIndexChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(86, 61);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(74, 17);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "Student ID";
-            // 
-            // buttonUpdate
-            // 
-            this.buttonUpdate.Location = new System.Drawing.Point(272, 360);
-            this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(114, 23);
-            this.buttonUpdate.TabIndex = 17;
-            this.buttonUpdate.Text = "Update";
-            this.buttonUpdate.UseVisualStyleBackColor = true;
-            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(419, 51);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(128, 52);
-            this.label19.TabIndex = 18;
-            this.label19.Text = "Note:\r\nID is added automatically \r\nin case of inserting \r\na new Student";
-            // 
             // Instructorf
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -665,9 +665,9 @@ namespace SqlProject
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExamQs)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExamQs)).EndInit();
             this.ResumeLayout(false);
 
         }

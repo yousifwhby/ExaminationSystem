@@ -32,6 +32,9 @@ namespace SqlProject
 
         public void Studentf_Load(object sender, EventArgs e)
         {
+            Courses.Items.Clear();
+            Exams.Items.Clear();
+            Courses.Text = Exams.Text = "";
             fillExamsTab();
             fillCourseTab();
 
@@ -105,7 +108,7 @@ namespace SqlProject
                                 join courName in MainApp.entity.courses on c.course_ID equals courName.course_ID
                                 where g.student_ID == MainApp.UserID
                                 select new { courName.course_name, g.exam_ID, g.exam_grade };
-
+            StudentInfo_GV.Rows.Clear();
             foreach (var item in studentgrades)
             {
                 string grade = item.exam_grade != null ? item.exam_grade.ToString() : "Exam is available ";
